@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} <!-- New line -->
+<!--quiz about rango's friends with dictionary with names as keys and their relationship status to rango-->
+<html>
+    <a href="/rango/">Back</a><br />
+    <head>
+        <title>Rango's Friends!</title>
+    </head>
+    <body>
+        <h1>Rango's best friends</h1>
+        <div>
+        <strong>{{ boldmessage }}</strong><br />
+        </div>
+        <div>
+            <img src="{% static "images/queen.jpg" %}"
+                onclick = "myFunction ('{{queen}}')" alt='HM Queen Elisabeth II' />
+            <img src="{% static "images/sushi.jpg" %}"
+                onclick = "myFunction ('{{nigiri}}') " alt="Nigiri" />
+            <img src="{% static "images/pope.jpg" %}"
+                onclick = "myFunction ('{{pope}}') " alt="The Pope" />¨ <!-- New line -->
+        </div>
+        <div>
+            <img src="{% static "images/bunny.JPG" %}"
+                onclick = "myFunction ('{{bunny}}') " alt="The Easter Bunny" />
+            <img src="{% static "images/hellokitty.jpg" %}"
+                onclick = "myFunction ('{{kitty}}') " alt="Miss Kitty" />
+            <img src="{% static "images/bigcat.jpg" %}"
+                onclick = "myFunction ('{{cat}}') " alt="Mommy cat" />
+        </div>
+
+    <script>
+        function myFunction (message) {
+            window.alert(message);
+        }
+    </script>
+    </body>
+</html>

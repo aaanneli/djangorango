@@ -14,3 +14,14 @@ def index(request):
 
 def about(request):
     return HttpResponse("Rango says here is the about page. <br/> <a href='/rango/'>Index</a>")
+
+def friends(request):
+    context_dict = {'boldmessage': 'Guess who is a cat! Click on an image to guess.',
+                    'queen': 'No, HM Queen Elisabeth II is clearly a human.',
+                    'nigiri' : 'Yes, Nigiri is indeed a cat.',
+                    'pope': 'No, the pope is really a dog dressed up as The Pope.',
+                    'bunny' : 'No, the Easter Bunny is a bunny!',
+                    'kitty' : 'Yes, Miss Kitty is a cat.',
+                    'cat' : 'No, Mommy Cat is not really a cat. She is a human.',
+                    }
+    return render(request, 'rango/friends.html', context=context_dict)
