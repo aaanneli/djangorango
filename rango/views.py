@@ -1,11 +1,16 @@
 from django.shortcuts import render
-
+from rango.models import Category
+from rango.models import Page
 from django.http import HttpResponse
 
 def index(request):
+    #Query for categories and sort by amt of likes in decending order
+    #and only get the top 5
+    category_list = Category.objects.order_by('-likes')[:5]
+    #same for pages
+    page_list  = Page.objects.order_by('-views')[:5]
     # Construct a dictionary to pass to the template engine as its context.
-    # Note the key boldmessage is the same as {{ boldmessage }} in the template!
-    context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
+    context_dict = {'categories': category_list, 'pages' : page_list}
 
     # Return a rendered response to send to the client.
     # We make use of the shortcut function to make our lives easier.
@@ -25,3 +30,23 @@ def friends(request):
                     'cat' : 'No, Mommy Cat is not really a cat. She is a human.',
                     }
     return render(request, 'rango/friends.html', context=context_dict)
+
+def show_category(request, category_name_slug):
+    context_dict = {}
+
+    try:
+        category = Category.objects.get(slug=category_name_slug)
+
+        pages = Page.objects.filter(category=category)
+
+        context_dict ['pages'] = pages
+
+        context_dict ['category'] = category
+
+    except Category.DoesNotExist:
+
+        context_dict['category'] = None
+
+        context_dict['pages'] = None
+
+    return render(request, 'rango/category.html', context_dict)
