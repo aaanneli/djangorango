@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from rango import views
+from django.contrib import admin
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -9,6 +10,7 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^restricted/', views.restricted, name='restricted'),
+    url(r'^admin/', admin.site.urls),
 
     url(r'^category/(?P<category_name_slug>[\w\-]+)/$',
         views.show_category,
@@ -21,5 +23,6 @@ urlpatterns = [
     url(r'^register/$',
         views.register,
         name='register'),
+
 ]
 
