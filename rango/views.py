@@ -18,17 +18,19 @@ def index(request):
 
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
+    context_dict['last_visit'] = request.session['last_visit']
 
     response = render(request, 'rango/index.html', context_dict)
     return response
 
 def about(request):
+    context_dict = {}
     if request.session.test_cookie_worked():
         print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
-    #print(request.method)
-    #print(request.user)
-    return render(request, 'rango/about.html', {})
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+    return render(request, 'rango/about.html', context_dict)
 
 def friends(request):
     context_dict = {'boldmessage': 'Guess who is a cat! Click on an image to guess.',
@@ -162,7 +164,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
-def visitor_cookie_handler(request, response):
+def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request, 'visits', '1'))
     last_visit_cookie = get_server_side_cookie(request,
                                                 'last_visit',
